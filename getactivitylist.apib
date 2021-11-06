@@ -1,0 +1,136 @@
+FORMAT: 1A
+HOST: https://private-30dec-getactivitylist.apiary-mock.com
+
+# getActivityList
+
+Polls is a simple API allowing consumers to view polls and vote in them.
+
+## activity Collection [/activity]
+
+A activity object has the following attributes:
+
+    
+### List All activity [GET /activity/{user_id}]
++ Parameters
+    + user_id: 1
++ Request
+    + Headers
+     ```
+     Access-Control-Allow-Origin: '*'
+     ```
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"acitivity 1",
+                "status":0
+            },
+            {
+                "id":2,
+                "name":"acitivity 2",
+                "status":1
+            },
+            {
+                "id":3,
+                "name":"acitivity 3",
+                "status":1
+            },
+            {
+                "id":4,
+                "name":"acitivity 4",
+                "status":0
+            }
+        ]
++ Response 400 (application/json)
+
+        {
+            "error": "error.unauthorized"
+        }
+
+### Create a Activity [PUT/activity/{user_id}]
++ Request (application/json)
+      +  id : (required, number) - id param
+      +  name :(required, string) - name param
+      +  status :(required, boolean) - status param
+
+     + Headers
+     ```
+     Access-Control-Allow-Origin: '*'
+     ```
+
++ Response 201 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"activity 1",
+                "status":0
+            },
+            {
+                "id":2,
+                "name":"activity 2",
+                "status":1
+            },
+            {
+                "id":3,
+                "name":"activity 3",
+                "status":1
+            },
+            {
+                "id":4,
+                "name":"activity 4",
+                "status":0
+            }
+        ]
++ Response 400 (application/json)
+
+        {
+            "error": "error.unauthorized"
+        }
+
+### Update a Activity [POST/activity/{user_id}]
+Update activity details
++ Request (application/json)
+
+     + Attributes
+      +  id  (required, number)
+      +  name (required, string)
+      +  status (required, boolean) 
+      + Headers
+     ```
+     Access-Control-Allow-Origin: '*'
+     ```
+
++ Response 201 (application/json)
+
+
+        [
+            {
+                "id":1,
+                "name":"acitivity 1",
+                "status":0
+            }
+        ]
++ Response 400 (application/json)
+
+        {
+            "error": "error.BadRequest"
+        }
+
+### Remove a User [DELETE/activity/{user_id}]
++ Parameters (application/json)
+    + id (number) - ID of the Question in the form of an integer
+     + Headers
+     ```
+     Access-Control-Allow-Origin: '*',
+     Access-Control-Allow-Methods:'GET, POST, OPTIONS, PUT, DELETE'
+     ```
++ Response 204
++ Response 400 (application/json)
+
+        {
+            "error": "error.unauthorized"
+        }
+
