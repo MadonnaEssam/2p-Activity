@@ -1,7 +1,7 @@
 <template>
 <b-container fluid>
     <h1>Activity List<span>★</span></h1>
-    <b-btn @click="addRow" variant="primary" class="btn btn-blue float-end fas fa-plus "></b-btn>
+    <b-btn @click="showAddModal" variant="primary" class="btn btn-blue float-end fas fa-plus "></b-btn>
     <b-table :items="items" :fields="fields" class="tableColor" ref='table'>
         <template v-slot:cell()="{item, value, field: { key }}">
             <template v-if="key=='status'">
@@ -17,7 +17,7 @@
     </b-table>
 
     <b-modal id="modal-1" ref="modal-1" title="Create an Acitivty" @hide="hideModel" hide-footer no-close-on-backdrop>
-        <b-form @submit.stop.prevent="addRow(form)" class="form">
+        <b-form @submit.stop.prevent="showAddModal(form)" class="form">
             <b-row>
                 <b-col class="pl-1 pr-1 col">
                     <b-form-group id="input-group-1" label="Acitivty Name:" label-for="input-1">
@@ -55,7 +55,7 @@
             </b-row>
             <hr />
             <div class="float-end ">
-                <b-button class="btn btn-success" variant="success" @click="add(form)">Add</b-button>
+                <b-button class="btn btn-success" variant="success" @click="addRow(form)">Add</b-button>
                 <b-button class="btn ml-2 btn-danger" variant="danger" @click="hideModel()">Cancel</b-button>
             </div>
         </b-form>
@@ -72,6 +72,7 @@ export default {
         return {
             edit: null,
             items: [],
+            user_id:1,
             form: {
                 status: null,
                 acitivtyName: null
@@ -118,9 +119,10 @@ export default {
             this.form.acitivtyName = null;
             this.$bvModal.hide('modal-1')
         },
-        add(form) {
+        addRow(form) {
             var self = this;
-            Vue.Invoke("put", form,
+            
+            Vue.Invoke("put",this.user_id, form,
                 function () {
                     self.items.push({
                         name: form.acitivtyName,
@@ -132,7 +134,7 @@ export default {
 
                 })
         },
-        addRow() {
+        showAddModal() {
             this.$refs["modal-1"].show();
         },
         onDelete(item) {
@@ -149,7 +151,7 @@ export default {
                 if (result.value == true) {
                     console.log(item);
                     var self = this;
-                    Vue.Invoke("delete", item.id,
+                    Vue.Invoke("delete",this.user_id, item.id,
                         function () {
                             self.notify('success', 'Activity deleted successfully');
                             var index = self.items.findIndex(e => e.id == item.id)
@@ -163,7 +165,7 @@ export default {
         },
         onSave(item) {
             var self = this;
-            Vue.Invoke("post", item,
+            Vue.Invoke("post",this.user_id, item,
                 function () {
                     self.$set(item, 'status', !item.status)
                     self.notify('success', 'Activity updated successfully')
@@ -171,7 +173,7 @@ export default {
         },
         getActivityList() {
             var self = this;
-            Vue.Invoke("get", null,
+            Vue.Invoke("get",this.user_id, null,
                 function (response) {
                     window.localStorage.activity = JSON.stringify(response)
                     self.items = response;
@@ -208,7 +210,7 @@ export default {
 }
 
 .table {
-      background: white;
+    background: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0px 40px 0px rgb(0 0 0 / 15%);
