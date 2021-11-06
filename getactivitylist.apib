@@ -92,12 +92,15 @@ A activity object has the following attributes:
 
 ### Update a Activity [POST/activity/{user_id}]
 Update activity details
-+ Request (application/json)
++ Request  (application/json)
 
-     + Attributes
-      +  id  (required, number)
-      +  name (required, string)
-      +  status (required, boolean) 
+        {
+            "id": 1,
+            "name": "activity 1",
+            "status": 1,
+           
+        }
+
       + Headers
      ```
      Access-Control-Allow-Origin: '*'
