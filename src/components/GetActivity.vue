@@ -208,6 +208,7 @@ export default {
 }
 
 .table {
+      background: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0px 40px 0px rgb(0 0 0 / 15%);

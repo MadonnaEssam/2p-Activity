@@ -16,12 +16,19 @@ export default {
 </script>
 
 <style>
+body,html{
+  height: 100%;
+  width: 100%;
+}
 #app {
+    background-image: url('./assets/back5.png');
     font-family: sans-serif;
     color: #656565;
     font-size: .875rem;
     line-height: 1.4;
     text-align: center;
     margin-top: 60px;
+    width: 100%;
+    height: 100%;
 }
 </style>
